@@ -54,7 +54,7 @@ export default function HostVanDetails() {
                     <NavLink to="pricing">Pricing</NavLink>
                     <NavLink to="photos">Photos</NavLink>         
                 </nav>
-                {console.log('van is', vanDetail)}
+               
                 <Outlet context={{vanDetail}} />
             </div>
         </section>

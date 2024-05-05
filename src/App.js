@@ -15,12 +15,14 @@ import HostVanDetails from './page/Host/Vans/VanDetails.jsx';
 import HostVanInfo from './page/Host/HostVanInfo.jsx';
 import HostVanPrice from './page/Host/HostVanPrice.jsx';
 import HostVanPhotos from './page/Host/HostVanPhotos.jsx';
+import SearchParams from './page/Vans/SearchParams.jsx';
  
 
 function App() {
   return (
     <>     
       <Routes>
+        <Route path="/characters" element={<SearchParams />} />
         <Route element={<Layout />}>
           <Route index element={<Home />} />        
           <Route path="about" element={<About />} />      
