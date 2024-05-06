@@ -1,11 +1,16 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link,useSearchParams } from 'react-router-dom';
 
 export default function Vans() {
     const [vans, setVans] = useState(null);
     const [loading,setLoading] = useState(true);
     const [error,setError] = useState(null);
+
+    const [searchParams,setSearchParams] = useSearchParams();
+    const typeFilter  = searchParams.get("type")
+    console.log('typeFilter ', typeFilter)
+
     useEffect(()=>{
         const fetchData = async () => {
             try {
@@ -20,7 +25,7 @@ export default function Vans() {
 
         fetchData();
     },[])
-    console.log(vans);
+    
     if(loading) {
         return(<div className='van-list-container'>Loading ...</div>)
     }

@@ -26,8 +26,10 @@ export default function HostVanDetails() {
         fetchData();        
     },[params.id])
 
-    console.log('error ', error);
-   console.log('vanDetail ', vanDetail );
+    if (!vanDetail) {
+        return <h1>Loading...</h1>
+    }
+     
     
     return (
         <section>
@@ -54,7 +56,7 @@ export default function HostVanDetails() {
                     <NavLink to="pricing">Pricing</NavLink>
                     <NavLink to="photos">Photos</NavLink>         
                 </nav>
-               
+               {console.log('vanDetail ' , vanDetail)}
                 <Outlet context={{vanDetail}} />
             </div>
         </section>
