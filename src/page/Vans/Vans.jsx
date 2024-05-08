@@ -9,7 +9,7 @@ export default function Vans() {
 
     const [searchParams,setSearchParams] = useSearchParams();
     const typeFilter  = searchParams.get("type")
-    console.log('typeFilter ', typeFilter)
+    
 
     useEffect(()=>{
         const fetchData = async () => {
@@ -30,10 +30,14 @@ export default function Vans() {
         return(<div className='van-list-container'>Loading ...</div>)
     }
 
-    const vanElements = vans.map((van,index)=>{
+    const displayVans = typeFilter
+        ? vans.filter(van=>van.type === typeFilter)
+        : vans
+
+    const vanElements = displayVans.map((van,index)=>{
         const {name,imageUrl,type,id,price} = van;
         return(
-                <Link to={`/vans/${id}`}>
+                <Link to={`/vans/${id}`} key={index}>
                     <div className="van-tile" key={id}>
                         <img alt={name} src={imageUrl} />
                         <div className="van-info">
@@ -45,12 +49,23 @@ export default function Vans() {
                 </Link>
             ) 
        })
+
     return (
         <div className="van-list-container">
-             <h1>Explore our van options</h1>
-             <div className="van-list">
+            <h1>Explore our van options</h1>
+            <div style={{'display':'flex', 'gap': '10px'}}>
+                {/* <Link className='van-type simple' to="?type=simple">Simple</Link>
+                <Link className='van-type rugged' to="?type=rugged">Rugged</Link>
+                <Link className='van-type luxury' to="?type=luxury">Luxury</Link>
+                <Link className='van-type clear-filters' to=".">Clear Filters</Link> */}
+                 <button className='van-type simple' onClick={()=>setSearchParams({type:'simple'})}>Simple</button>
+                <button className='van-type rugged' onClick={()=>setSearchParams({type:'rugged'})}>Rugged</button>
+                <button className='van-type luxury' onClick={()=>setSearchParams({type:'luxury'})}>Luxury</button>
+                <button className='van-type clear-filters' onClick={()=>setSearchParams({})}>Clear Filters</button>
+            </div>
+            <div className="van-list">
                 {vanElements}
-             </div>
+            </div>
         </div>
     )
 }
