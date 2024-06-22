@@ -26,6 +26,10 @@ export default function Vans() {
         fetchData();
     },[])
     
+    function generateNewParamString(key,value) {
+
+    }
+
     if(loading) {
         return(<div className='van-list-container'>Loading ...</div>)
     }
@@ -58,7 +62,7 @@ export default function Vans() {
                 <Link className='van-type rugged' to="?type=rugged">Rugged</Link>
                 <Link className='van-type luxury' to="?type=luxury">Luxury</Link>
                 <Link className='van-type clear-filters' to=".">Clear Filters</Link> */}
-                 <button className='van-type simple' onClick={()=>setSearchParams({type:'simple'})}>Simple</button>
+                <button className='van-type simple' onClick={()=>setSearchParams({type:'simple'})}>Simple</button>
                 <button className='van-type rugged' onClick={()=>setSearchParams({type:'rugged'})}>Rugged</button>
                 <button className='van-type luxury' onClick={()=>setSearchParams({type:'luxury'})}>Luxury</button>
                 <button className='van-type clear-filters' onClick={()=>setSearchParams({})}>Clear Filters</button>

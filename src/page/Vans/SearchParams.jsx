@@ -41,14 +41,28 @@ export default function SearchParams() {
         </div>
       ))
 
+      function generateNewParamString(key,value) {
+        const sp =  new URLSearchParams(searchParams);
+        if(value=== null) {
+          sp.delete(key)
+        }else {
+          sp.set(key,value)
+        }
+        return `?${sp.toString()}`;
+      }
     
   return (
     <main>
       <h2>Home</h2>
       <div>
-        <Link to="?type=jedi">Jedi</Link>
+        {/* <Link to="?type=jedi">Jedi</Link>
         <Link to="?type=sith">sith</Link>
-        <Link to=".">clear</Link>
+        <Link to=".">clear</Link> */}
+
+         <Link to={generateNewParamString('type','jedi')}>Jedi</Link>
+        <Link to={generateNewParamString('type','sith')}>sith</Link>
+        <Link to={generateNewParamString('type',null)}>clear</Link>
+
       </div>
       {charEls}
     </main>
