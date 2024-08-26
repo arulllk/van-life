@@ -1,34 +1,26 @@
-import { Link, useParams }  from 'react-router-dom';
+import { Link, useParams,useLocation,useLoaderData }  from 'react-router-dom';
 import axios from 'axios';
 import { useState,useEffect } from 'react';
+import { getVans } from '../../api';
+import {requireAuth} from "../../utils"
+
+export async function loader ({params}) {    
+    await requireAuth();
+    return getVans(params.id);
+} 
+
 
 export default function VanDetail() {
-    const params = useParams();
-    const [van,setVan] = useState(null);
-    const [loading,setLoading] = useState(true);
-    const [error,setError] = useState(null);
-    useEffect(()=>{
-        const fetchData = async () => {
-            console.log('comes');
-            try {    
-                const response = await axios.get(`/api/vans/${params.id}`);
-                console.log('response' , response.data);
-                setVan(response.data.vans)
-            } catch (error) {
-                setError(error)
-            }finally {
-                setLoading(false)
-            }          
-        }
-
-        fetchData();
-    },[params.id])
+  
     
+    const van = useLoaderData();
+    const location = useLocation();
     
-    
+    const search = location.state?.search || "";
+    const type = location.state?.type || " all"     
     return(
         <div className="van-detail-container">
-            <Link to=".." relative='path' className='back-button'>&larr; <span>Back to all vans</span></Link>
+            <Link to={`..${search}`} relative='path' className='back-button'>&larr; <span>Back to {type} vans</span></Link>
             {van ?(                
                 <div className='van-detail'>
                     <img src={van.imageUrl} />
